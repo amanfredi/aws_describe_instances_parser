@@ -31,7 +31,7 @@ hosts = reservations["Reservations"].inject({}) do |memo, reservation|
   reservation["Instances"].map do |instance|
     name_tag_pair = instance["Tags"].find { |tag| tag["Key"] == "Name" }
     if name_tag_pair
-      name = name_tag_pair["Value"]
+      name = name_tag_pair["Value"].gsub(/\s/, '-')
       memo[name] ||= {
         public_ips: [],
         private_ips: []
